@@ -1,0 +1,109 @@
+{% extends "bookings/base.html" %}
+
+{% block body %}
+    <div class="container">
+        <br>
+        <p>
+            Leuk dat u interesse heeft in het boeken van een overnachting.<br>
+            Voor het boeken van een periode in het huisje kunt u gebruik maken van het boekingssysteem hieronder.<br>
+            Bij het boekingssysteem is het belangrijk dat je niet je vertrek dag aanklikt, maar alleen de dagen waarop je ook overnacht.<br>
+            <br>
+            Voor boekingen hanteren wij een minimum van 3 nachten.<br>
+            In het hoogseizoen een minimum van een week, mocht een volle week in die periode niet meer mogelijk zijn kan je altijd een aanvraag doen.<br>
+        </p>
+    </div>
+    
+    <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div id='calendar0'></div>
+                </div>
+                <div class="col-md-6">
+                    <div id='calendar1'></div>
+                </div>
+            </div>
+         </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+            var x = new Date();
+            x.setDate(1);
+            x.setMonth(x.getMonth() + 1);
+
+            var calendar = new FullCalendar.Calendar(document.getElementById('calendar0'), {
+                locale: 'nl',
+                plugins: [ 'dayGrid', 'interaction'],
+                defaultDate: date,
+                header: {
+                    left: 'title',
+                    center: '',
+                    right: ''
+                },
+                buttonText: {
+                    today: 'vandaag'
+                },
+                selectable: 'true',
+                events: [{
+                    title: 'Teste',
+                    start: '2019-12-06',
+                    end: '2019-12-14',
+                }],
+                select: function(arg) {
+                    var title = prompt('Event Title:');
+                        if (title) {
+                            calendar.addEvent({
+                                title: title,
+                                start: arg.start,
+                                end: arg.end,
+                                allDay: arg.allDay
+                        })
+                    }
+                }
+            });
+            var nextcalendar = new FullCalendar.Calendar(document.getElementById('calendar1'), {
+                locale: 'nl',
+                plugins: [ 'dayGrid', 'interaction'],
+                defaultDate: x,
+                header: {
+                    left: 'title',
+                    center: '',
+                    right: 'prev today next'
+                },
+                buttonText: {
+                    today: 'vandaag'
+                },
+                selectable: 'true',
+
+                events: [{
+                    title: 'Teste',
+                    start: '2019-12-06',
+                    end: '2019-12-14',
+                }],
+                datesRender: function(view, element) {
+                    cur = view.intervalStart;
+                    d = moment(cur).add('months', 1);
+                    calendar.fullCalendar('gotoDate', d);
+                },
+            });
+
+            calendar.render();
+            nextcalendar.render();
+        });
+    </script>
+    <script>
+        function allSelectedDays() {
+            var days = document.getElementsByClassName('selected');
+            var selected = [];
+            for (let i = 0; i < days.length; i++) {
+                selected.push(days[i].getAttribute('data-date'));
+            }
+            console.log(selected);
+        }
+    </script>
+    
+{% endblock %}

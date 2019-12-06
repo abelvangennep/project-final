@@ -6,7 +6,10 @@ import pickle
 # Create your views here.
 
 def index(request):
-    return HttpResponse("hello world")
+    return render(request, "bookings/index.html")
+
+def book(request):
+    return render(request, "bookings/book.html")
 
 def get_booking(request):
     credentials = pickle.load(open("/Users/abelvangennep/Desktop/Programmeren/project-sintanna/app/googleapi-setup/token.pkl", "rb"))
