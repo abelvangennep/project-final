@@ -14,96 +14,121 @@
     </div>
     
     <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div id='calendar0'></div>
-                </div>
-                <div class="col-md-6">
-                    <div id='calendar1'></div>
-                </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div id='calendar0'></div>
             </div>
-         </div>
+        </div>
+    </div>
+    <!-- <form action="{% url 'book' %}" method="POST">
+            {% csrf_token %}
+            <input name="test">
+            <button type="submit">test</button>
+    </form> -->
+    <div class="container">
+        <form action="{% url 'book' %}" method="POST">
+            {% csrf_token %}
+            <table style="width:70%">
+                <tr>
+                    <td>Aankomst:</td>
+                    <td><input type="text" id="arrival_date" name="arrival_date" readonly="True" required></td>
+                </tr>
+                <tr>
+                    <td>Vertrek:</td>
+                    <td><input type="text" id="departure_date" name="departure_date" required></td>
+                </tr>
+                <tr>
+                    <td>Voornaam:*</td>
+                    <td><input type="text" name="firstname" required></td>
+                </tr>
+                <tr>
+                    <td>Achternaam:*</td>
+                    <td><input type="text" name="lastname" required></td>
+                </tr>
+                <tr>
+                    <td>mailadres:*</td>
+                    <td><input type="text" name="email" required></td>
+                </tr>
+                <tr>
+                    <td>telefoonnummer:*</td>
+                    <td><input type="text" name="telefoonnummer" required></td>
+                </tr>
+            </table>
+            <br>
+            <select class="col-md-6" name="quest_number" required>
+                <option selected >Aantal gasten</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">6+ (Neem contact op om te informeren over de mogelijkheden)</option>
+            </select>
+            <br>
+            <div class="col-md-6">
+                <label for="comment">Opmerkingen:</label>
+                <textarea class="form-control" rows="5" id="comment"></textarea>
+            </div>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
 
-            var date = new Date();
-            var d = date.getDate();
-            var m = date.getMonth();
-            var y = date.getFullYear();
-            var x = new Date();
-            x.setDate(1);
-            x.setMonth(x.getMonth() + 1);
-
             var calendar = new FullCalendar.Calendar(document.getElementById('calendar0'), {
+            
                 locale: 'nl',
-                plugins: [ 'dayGrid', 'interaction'],
-                defaultDate: date,
-                header: {
-                    left: 'title',
-                    center: '',
-                    right: ''
-                },
-                buttonText: {
-                    today: 'vandaag'
-                },
-                selectable: 'true',
-                events: [{
-                    title: 'Teste',
-                    start: '2019-12-06',
-                    end: '2019-12-14',
-                }],
-                select: function(arg) {
-                    var title = prompt('Event Title:');
-                        if (title) {
-                            calendar.addEvent({
-                                title: title,
-                                start: arg.start,
-                                end: arg.end,
-                                allDay: arg.allDay
-                        })
-                    }
-                }
-            });
-            var nextcalendar = new FullCalendar.Calendar(document.getElementById('calendar1'), {
-                locale: 'nl',
-                plugins: [ 'dayGrid', 'interaction'],
-                defaultDate: x,
+                plugins: [ 'dayGrid', 'interaction', 'googleCalendar'],
+                defaultDate: new Date(),
                 header: {
                     left: 'title',
                     center: '',
                     right: 'prev today next'
                 },
+                validRange: {
+                    start: new Date(),
+                    end: new Date().setMonth(new Date().getMonth() + 6)
+                },
+                googleCalendarApiKey: 'AIzaSyB5Qs9AB4CFwehI7WvLbq9B0j8SLlmjekQ',
+                events: {
+                    googleCalendarId: 'uhtbefspsip0e23u07cspnj2r4@group.calendar.google.com',
+                    overlap: false,
+                    color: '#ff9f89'
+                },
+                eventOverlap: false,
                 buttonText: {
                     today: 'vandaag'
                 },
-                selectable: 'true',
-
-                events: [{
-                    title: 'Teste',
-                    start: '2019-12-06',
-                    end: '2019-12-14',
-                }],
-                datesRender: function(view, element) {
-                    cur = view.intervalStart;
-                    d = moment(cur).add('months', 1);
-                    calendar.fullCalendar('gotoDate', d);
+                eventDataTransform: function(eventData) {
+                    console.log(eventData);
+                    eventData.rendering = 'background';
                 },
-            });
+                selectable: true,
+                selectOverlap: function(event){
+                    //don't allow overlap if there is an event
+                    return !(ThereIsAEvent(event));
+                },
+                background: 'red',
+                select: function(info) {
+                    selectOverlap = false;
+                    overlap = false;
+                    backgroundColor = 'orange'
+                    console.log(info);
+                    var start = info.startStr;
+                    var end = info.endStr;
+                    document.getElementById("arrival_date").value = start;
+                    document.getElementById("departure_date").value = end;
+                    
+                },
 
+            });
+            
             calendar.render();
-            nextcalendar.render();
         });
     </script>
-    <script>
-        function allSelectedDays() {
-            var days = document.getElementsByClassName('selected');
-            var selected = [];
-            for (let i = 0; i < days.length; i++) {
-                selected.push(days[i].getAttribute('data-date'));
-            }
-            console.log(selected);
-        }
-    </script>
+    
     
 {% endblock %}

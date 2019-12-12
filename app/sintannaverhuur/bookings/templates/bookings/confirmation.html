@@ -1,0 +1,49 @@
+{% extends "bookings/base.html" %}
+
+{% block body %}
+
+    <div class="container">
+        <h3>Dank voor het boeken</h3>
+
+        <p>
+            Uw boeking is in goede orde ontvangen.
+            Kloppen de gegevens van u boeking?
+        </p>
+        <p>
+            Dag van aankomst: {{aankomst}}
+            <br>
+            Dag van vertrek: {{vertrek}}
+        </p>
+        <p>
+        <div class="col-md-6">
+            <table>
+                <tr>
+                    <th>Prijs van u reis:</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>Nachtprijs:</td>
+                    <td>{{ prijs.nachtprijs }}</td>
+                </tr>
+                <tr>
+                    <td>Schoonmaak kosten:</td>
+                    <td>{{ prijs.schoonmaakprijs }}</td>
+                </tr>
+                <tr>
+                    <td>Kosten voor linnengoed:</td>
+                    <td>{{ prijs.linnengoedprijs }}</td>
+                </tr>
+                <tr>
+                    <td>Toeslag (Indien u met meer dan 4 personen bent):</td>
+                    <td>{{ prijs.toeslagextra }}</td>
+                </tr>
+                <tr>
+                    <td>Totaalprijs:</td>
+                    <td>{{ prijs.totaal }}</td>
+                </tr>
+            </table>
+        </div>
+        </p>
+
+    </div>
+{% endblock %}
