@@ -1,53 +1,48 @@
-* {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
+* {box-sizing:border-box}
+$headcolor: #013f59;
+$backgroundcolor: #f9fbfc;
+$bordercolor: lightblue;
 
 .mapouter {
-  position: relative;
-  text-align: right;
-  height: 500px;
-  width: 824px;
+  position:relative;
+  text-align:right;
+  height:500px;
+  width:824px;
 }
 
 .gmap_canvas {
-  overflow: hidden;
-  background: none !important;
-  height: 500px;
-  width: 824px;
+  overflow:hidden;
+  background:none!important;
+  height:500px;
+  width:824px;
 }
 
 body {
-  background-color: #f9fbfc;
+  background-color: $backgroundcolor;
 }
 
 h4 {
-  color: #013f59;
+  color: $headcolor;
 }
-
 .navbar-custom {
-  background-color: #f9fbfc;
+  background-color: $backgroundcolor;
 }
-
 /* change the brand and text color */
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-text {
-  color: #013f59;
+  color: $headcolor;
 }
-
 /* change the link color */
 .navbar-custom .navbar-nav .nav-link {
-  color: #013f59;
+  color:$headcolor;
 }
-
 /* change the color of active or hovered links */
 .navbar-custom .nav-item.active .nav-link,
 .navbar-custom .nav-item:hover .nav-link {
-  color: #013f59;
+  color: $headcolor;
 }
-
 #navcontainer {
-  padding: 4px;
+  padding:4px;
 }
 
 .fc-highlight {
@@ -60,21 +55,19 @@ h4 {
   border-right-style: solid;
   border-bottom-style: solid;
   border-left-style: solid;
-  color: #013f59;
+  color: $headcolor;
   border-width: 1px;
-  padding: 30px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1px 1px 3px 0px;
-          box-shadow: rgba(0, 0, 0, 0.75) 1px 1px 3px 0px;
-  border-color: lightblue;
+  padding:30px;
+  box-shadow: rgba(0, 0, 0, 0.75) 1px 1px 3px 0px;
+  border-color: $bordercolor;
 }
 
 #bodydiv {
   border-style: solid;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1px 1px 3px 0px;
-          box-shadow: rgba(0, 0, 0, 0.75) 1px 1px 3px 0px;
+  box-shadow: rgba(0, 0, 0, 0.75) 1px 1px 3px 0px;
   border-width: 1px;
-  padding: 40px;
-  border-color: lightblue;
+  padding:40px;
+  border-color: $bordercolor;
 }
 
 /* Slideshow container */
@@ -100,13 +93,9 @@ h4 {
   color: white;
   font-weight: bold;
   font-size: 18px;
-  -webkit-transition: 0.6s ease;
   transition: 0.6s ease;
   border-radius: 0 3px 3px 0;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  user-select: none;
 }
 
 /* Position the "next button" to the right */
@@ -117,7 +106,7 @@ h4 {
 
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0,0,0,0.8);
 }
 
 /* Caption text */
@@ -149,7 +138,6 @@ h4 {
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
-  -webkit-transition: background-color 0.6s ease;
   transition: background-color 0.6s ease;
 }
 
@@ -163,25 +151,16 @@ h4 {
   -webkit-animation-duration: 6s;
   animation-name: fade;
   animation-duration: 6s;
+
 }
 
 @-webkit-keyframes fade {
-  from {
-    opacity: .8;
-  }
-  to {
-    opacity: 1;
-  }
+  from {opacity: .8}
+  to {opacity: 1}
 }
 
 @keyframes fade {
-  from {
-    opacity: .8;
-  }
-  to {
-    opacity: 1;
-  }
+  from {opacity: .8}
+  to {opacity: 1}
 }
-
 /* Modified from: https://www.w3schools.com/howto/howto_js_slideshow.asp */
-/*# sourceMappingURL=style.css.map */
