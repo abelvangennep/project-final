@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         buttonText: {
             today: 'vandaag'
         },
-    
+
         background: 'red',
         // Allow user to select dates
         selectable: true,
