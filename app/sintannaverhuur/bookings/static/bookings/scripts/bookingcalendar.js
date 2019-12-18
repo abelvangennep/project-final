@@ -20,19 +20,23 @@ document.addEventListener('DOMContentLoaded', function() {
         googleCalendarApiKey: 'AIzaSyB5Qs9AB4CFwehI7WvLbq9B0j8SLlmjekQ',
         events: {
             googleCalendarId: 'uhtbefspsip0e23u07cspnj2r4@group.calendar.google.com',
+            color: '#ff9f89',
             overlap: false,
-            color: '#ff9f89'
         },
         buttonText: {
             today: 'vandaag'
         },
-
+        eventDataTransform: function(eventData) {
+            eventData.rendering = 'background';
+        },
+        selectOverlap: function(event){
+            //don't allow overlap if there is an event
+            return !(ThereIsAEvent(event));
+        },
         background: 'red',
         // Allow user to select dates
         selectable: true,
-        select: function(info) {
-            selectOverlap = false;
-            overlap = false;            
+        select: function(info) {   
             // Get start & end values of selected dates and enter them in variable
             var start = info.startStr;
             var end = info.endStr;
